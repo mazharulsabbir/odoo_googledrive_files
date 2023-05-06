@@ -12,7 +12,7 @@ from odoo.modules.module import get_module_resource
 # Define the auth scopes to request.
 scopes = ['https://www.googleapis.com/auth/drive.metadata.readonly', 'https://www.googleapis.com/auth/drive.file']
 KEY_FILE_NAME = 'KEY_FILE_NAME.json'
-key_file_location = get_module_resource('qubic_google_drive_files', 'static/files/', KEY_FILE_NAME)
+key_file_location = get_module_resource('odoo_googledrive_files', 'static/files/', KEY_FILE_NAME)
 
 
 def get_service(api_name, api_version):
