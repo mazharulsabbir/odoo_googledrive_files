@@ -1,4 +1,5 @@
 import json
+import os
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -10,9 +11,14 @@ from odoo.http import request, Response
 from odoo.modules.module import get_module_resource
 
 # Define the auth scopes to request.
+# A list auth scopes to authorize for the application.
 scopes = ['https://www.googleapis.com/auth/drive.metadata.readonly', 'https://www.googleapis.com/auth/drive.file']
-KEY_FILE_NAME = 'KEY_FILE_NAME.json'
-key_file_location = get_module_resource('odoo_googledrive_files', 'static/files/', KEY_FILE_NAME)
+
+# The path to a valid service account JSON key file.
+MODULE_NAME = os.environ.get('module_name')  # eg. odoo_googledrive_files
+SERVICE_FILE_DIR = os.environ.get('file_path')  # static/file
+FILE_NAME = os.environ.get('file_name')  # service_acc.json
+key_file_location = get_module_resource(MODULE_NAME, SERVICE_FILE_DIR, FILE_NAME)
 
 
 def get_service(api_name, api_version):
@@ -21,8 +27,6 @@ def get_service(api_name, api_version):
     Args:
         api_name: The name of the api to connect to.
         api_version: The api version to connect to.
-        scopes: A list auth scopes to authorize for the application.
-        key_file_location: The path to a valid service account JSON key file.
 
     Returns:
         A service that is connected to the specified API.
